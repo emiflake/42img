@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/13 00:43:08 by nmartins       #+#    #+#                 #
-#    Updated: 2019/08/13 01:00:20 by nmartins      ########   odam.nl          #
+#    Updated: 2019/08/13 16:13:57 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,17 @@ OBJ_NAMES=	\
 			bitmap_parse \
 
 OBJECTS=	$(patsubst %, $(OBJ_DIR)/%.o, $(OBJ_NAMES))
+
+SRC_DIR=	./src
 SOURCES=	$(patsubst %, %.c, $(OBJ_NAMES))
 
-INCLUDES=	$(wildcard *.h)
+INC_DIR=	./inc
+INCLUDES=	$(wildcard $(INC_DIR)/*.h)
 
-$(OBJ_DIR)/%.o: %.c $(INCLUDES)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(CGREEN)[+]$(CDEF) $@"
-	@$(CC) -c -o $@ $< $(FLAGS)
+	@$(CC) -c -o $@ $< -I$(INC_DIR) $(FLAGS)
 
 $(NAME): $(OBJECTS)
 	@echo "$(CGREEN)[+]$(CDEF) $@"
