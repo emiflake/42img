@@ -6,7 +6,7 @@
 #    By: nmartins <nmartins@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/08/13 00:43:08 by nmartins       #+#    #+#                 #
-#    Updated: 2019/08/13 16:13:57 by nmartins      ########   odam.nl          #
+#    Updated: 2019/08/13 16:27:05 by nmartins      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ FLAGS=-Werror -Wall -Wextra
 
 OBJ_DIR=	.obj
 OBJ_NAMES=	\
-			bitmap \
-			bitmap_parse \
+			img_read \
+			img_bmp_parse \
+			img_gen \
+			img_bmp_gen \
 
 OBJECTS=	$(patsubst %, $(OBJ_DIR)/%.o, $(OBJ_NAMES))
 

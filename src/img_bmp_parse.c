@@ -6,7 +6,7 @@
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/08/12 23:07:11 by nmartins       #+#    #+#                */
-/*   Updated: 2019/08/13 00:32:17 by nmartins      ########   odam.nl         */
+/*   Updated: 2019/08/13 16:21:45 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 # include <stdio.h>
 
-#include "bitmap.h"
+#include "image.h"
 
 /*
 ** Skip at most n 1024 bytes
@@ -29,7 +29,7 @@ static void	fdskip(int fd, size_t bytes)
 	read(fd, buf, bytes);
 }
 
-static int	read_bytes(t_bitmap *out, int fd)
+static int	read_bytes(t_image *out, int fd)
 {
 	uint32_t	color;
 	int			x;
@@ -64,7 +64,7 @@ static int	read_bytes(t_bitmap *out, int fd)
 ** - 2 => Issue with bitmap
 ** - 0 => Success 
 */
-int			img_bmp_parse(t_bitmap *out, int fd)
+int			img_bmp_parse(t_image *out, int fd)
 {
 	char		header_buf[2];
 	uint32_t	reading_offset;

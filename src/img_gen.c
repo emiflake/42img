@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   bitmap.c                                           :+:    :+:            */
+/*   img_gen.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nmartins <nmartins@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/08/12 22:49:51 by nmartins       #+#    #+#                */
-/*   Updated: 2019/08/13 00:13:44 by nmartins      ########   odam.nl         */
+/*   Created: 2019/08/13 16:28:06 by nmartins       #+#    #+#                */
+/*   Updated: 2019/08/13 16:49:09 by nmartins      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,25 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "bitmap.h"
+#include "image.h"
 
-uint32_t	*img_get_pixel(t_bitmap *bmp, int x, int y)
+void	img_set_pixel(t_image *bmp, int x, int y, uint32_t pixel)
 {
-	return ((uint32_t*)&bmp->raw_pixels[(bmp->bpp / 8) * (bmp->width * y + x)]);
+	*img_get_pixel(bmp, x, y) = pixel;
 }
 
-t_bitmap	*img_read_bmp_fd(int fd)
-{
-	t_bitmap	*bmp;
-
-	bmp = (t_bitmap*)malloc(sizeof(t_bitmap));
-	if (!bmp)
-		return (NULL);
-	if (img_bmp_parse(bmp, fd) != 0)
-		return (NULL);
-	return (bmp);
-}
-
-t_bitmap	*img_read_bmp(const char *str)
+void		img_bmp_gen(t_image *img, const char *filename)
 {
 	int			fd;
-	t_bitmap	*bmp;
 
-	fd = open(str, O_RDONLY);
+	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd < 0)
-		return (NULL);
-	bmp = img_read_bmp_fd(fd);
+		return ;
+	img_bmp_gen_fd(img, fd);
 	close(fd);
-
-	return (bmp);
 }
 
-t_bitmap	*img_read(const char *str)
+void		img_gen(t_image *img, const char *filename)
 {
-	return (img_read_bmp(str));
+	img_bmp_gen(img, filename);
 }
